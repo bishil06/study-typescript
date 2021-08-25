@@ -125,7 +125,10 @@ const c = {
     children: [b],
 };
 function mapNode(node, f) {
-    return Object.assign(Object.assign({}, node), { value: f(node.value) });
+    return {
+        ...node,
+        value: f(node.value), // T extends TreeNode 여야만 value를 읽는 행위가 안전해진다
+    };
 }
 const a1 = mapNode(a, (_) => _.toUpperCase());
 const b1 = mapNode(b, (_) => _.toUpperCase());
